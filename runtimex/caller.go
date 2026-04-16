@@ -5,17 +5,15 @@ import (
 	"runtime"
 )
 
-type callerInfo struct {
-	FunctionName string
-	FileName     string
-	FileLine     int
-}
+type funcName = string
+type fileName = string
+type fileLine = int
 
-func CallerInfo(depth int) callerInfo {
+func CallerInfo(depth int) (funcName, fileName, fileLine) {
 	pc, file, line, ok := runtime.Caller(depth)
 
 	if !ok {
-		return callerInfo{"unknown", "unknown", 0}
+		return "unknown", "unknown", 0
 	}
 
 	fn := runtime.FuncForPC(pc)
@@ -24,5 +22,5 @@ func CallerInfo(depth int) callerInfo {
 		name = fn.Name()
 	}
 
-	return callerInfo{name, filepath.Base(file), line}
+	return name, filepath.Base(file), line
 }
