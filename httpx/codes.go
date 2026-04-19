@@ -5,16 +5,13 @@ import (
 )
 
 type HttpCode = int
-type internalHttpCode struct{}
 
 type _200 struct{}
 type _300 struct{}
 type _400 struct{}
 type _500 struct{}
 
-var Http internalHttpCode
-
-func (internalHttpCode) Name(c HttpCode) string {
+func Name(c HttpCode) string {
 	if c == 407 {
 		return "Proxy Authentication Required"
 	}
@@ -22,16 +19,16 @@ func (internalHttpCode) Name(c HttpCode) string {
 	return http.StatusText(c)
 }
 
-func (internalHttpCode) C200() _200 {
+func C200() _200 {
 	return _200{}
 }
-func (internalHttpCode) C300() _300 {
+func C300() _300 {
 	return _300{}
 }
-func (internalHttpCode) C400() _400 {
+func C400() _400 {
 	return _400{}
 }
-func (internalHttpCode) C500() _500 {
+func C500() _500 {
 	return _500{}
 }
 
